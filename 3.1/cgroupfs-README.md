@@ -11,7 +11,7 @@ TKE 新加节点可以走自定义数据方式实现，参考：https://cloud.te
 
 # Bind mount实现资源隔离
 
-已 meminfo 为例，完整示例如下：
+以 meminfo 为例，完整示例如下：
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
