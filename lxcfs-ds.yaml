@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: lxcfs
+  namespace: kube-system
+  labels:
+    name: lxcfs
+spec:
+  selector:
+    matchLabels:
+      name: lxcfs
+  template:
+    metadata:
+      labels:
+        name: lxcfs
+    spec:
+      priorityClassName: system-node-critical
+      hostPID: true
+      tolerations:
+      - operator: Exists
+      containers:
+        - name: lxcfs-monitor
+          image: ccr.ccs.tencentyun.com/tkeimages/lxcfs:4.0.8
+          imagePullPolicy: Always
+          command: ["/lxcfs-monitor.sh"]
+          args: ["/var/lib/lxc"]
+          resources:
+            limits:
+              cpu: 50m
+              memory: 50Mi
+          securityContext:
+            privileged: true  
+        - name: lxcfs
+          image: ccr.ccs.tencentyun.com/tkeimages/lxcfs:4.0.8
+          imagePullPolicy: Always
+          command: ["/start.sh"]
+          args: ["5", "/var/lib/lxc"]
+          env:
+          - name: ENV_DEBUG_COMM
+            value: "true"
+          - name: ENV_DEBUG_PID_CID
+            value: "true"
+          resources:
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          securityContext:
+            privileged: true          
+          volumeMounts:
+            - name: lxcfs
+              mountPath: /var/lib/lxc/lxcfs
+              mountPropagation: Bidirectional
+      volumes:
+        - name: lxcfs
+          hostPath:
+            path: /var/lib/lxc/lxcfs
+            type: DirectoryOrCreate
