@@ -1,5 +1,16 @@
 # cgroupfs挂载方式
 
+## 隔离视图
+当前实现的典型资源视图隔离支持如下：
+
+- /proc/cpuinfo
+- /proc/stat
+- /proc/meminfo
+- /proc/loadavg
+- /proc/diskstats
+- /sys/devices/system/cpu
+
+
 ## 节点挂载cgroupfs
 ```
 $ mkdir /cgroupfs
