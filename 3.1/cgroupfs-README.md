@@ -20,7 +20,7 @@ $ mount -t cgroupfs cgroupfs /cgroupfs/
 
 TKE 新加节点可以走自定义数据方式实现，参考：https://cloud.tencent.com/document/product/457/32206
 
-注意：开启内核参数 `sysctl -w kernel.container_cpuquota_aware=1
+注意：开启内核参数 `sysctl -w kernel.container_cpuquota_aware=1`
 
 # Bind mount实现资源隔离
 
