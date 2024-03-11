@@ -8,7 +8,7 @@
 - /proc/meminfo
 - /proc/loadavg
 - /proc/diskstats
-- /sys/devices/system/cpu
+- /proc/uptime
 
 
 ## 节点挂载cgroupfs
